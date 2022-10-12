@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ***** 每个dao接口对应一个映射文件 -->
+<!-- (1) mapper根标签中的namespace是dao接口的全名； -->
+<!-- (2) mapper根标签对应的CRUD操作的四个标签 为：select/insert/delelte/update； -->
+<!-- (3) CRUD标签是可以对dao接口中的每个方法配置对应的sql； -->
+<!-- (4) CRUD标签中的id属性表示接口的方法名称； -->
+<!-- (5) CRUD标签中的resultType属性表示接口方法的返回类型全名； -->
+<!-- (6) CRUD标签中的parameterType属性表示接口方法的参数类型全名； -->
+<!-- (7) CRUD标签中的内容存放接口方法对应的sql； -->
+<!-- (8) sql中引用参数时，以#号打头，大括号引住； -->
+<mapper namespace="edu.uc.dao.MemberDao">
+    <!-- insert -->
+    <insert id="insert" parameterType="edu.uc.bean.Member">
+<![CDATA[
+        insert into Member(
+                           userName ,userPass ,nickName ,email ,mobile ,myId ,myIdKey
+                          ,regIp ,regDate ,lastLoginIp ,lastLoginTime ,salt ,secques
+                          ,status ,remark ,sortNum ,isDeleted
+                          ,createBy ,updateBy ,createOn ,updateOn
+        )values(
+                   #{userName} ,#{userPass} ,#{nickName} ,#{email} ,#{mobile} ,#{myId} ,#
+                {myIdKey}
+               ,#{regIp} ,#{regDate} ,#{lastLoginIp} ,#{lastLoginTime} ,#{salt} ,#{secques}
+               ,#{status} ,#{remark} ,#{sortNum} ,#{isDeleted}
+               ,#{createBy} ,#{updateBy} ,#{createOn} ,#{updateOn}
+               )
+        ]]>
+</insert>
+    <!-- delete -->
+    <delete id="delete" parameterType="java.lang.Long">
+<![CDATA[
+        delete from Member
+        where userId=#{id}
+        ]]>
+</delete>
+    <!-- update -->
+    <update id="update" parameterType="edu.uc.bean.Member">
+
+<![CDATA[
+        update Member
+        set
+            userName=#{userName} ,userPass=#{userPass} ,nickName=#{nickName} ,email=#
+            {email} ,mobile=#{mobile} ,myId=#{myId} ,myIdKey=#{myIdKey}
+          ,regIp=#{regIp} ,regDate=#{regDate} ,lastLoginIp=#{lastLoginIp} ,lastLoginTime=#
+          {lastLoginTime} ,salt=#{salt} ,secques=#{secques}
+          ,status=#{status} ,remark=#{remark} ,sortNum=#{sortNum} ,isDeleted=#{isDeleted}
+          ,createBy=#{createBy} ,updateBy=#{updateBy} ,createOn=#{createOn} ,updateOn=#
+          {updateOn}
+        where userId=#{userId}
+        ]]>
+    </update>
+    <!-- list -->
+    <select id="list" resultType="edu.uc.bean.Member">
+<![CDATA[
+        select * from Member
+        order by userId desc
+        ]]>
+    </select>
+    <!-- load -->
+    <select id="load" parameterType="java.lang.Long"
+            resultType="edu.uc.bean.Member">
+<![CDATA[
+        select *
+        from Member
+        where userId=#{id}
+        ]]>
+</select>
+    <!-- loadByName -->
+    <select id="loadByName" parameterType="java.lang.String"
+            resultType="edu.uc.bean.Member">
+<![CDATA[
+        select *
+        from Member
+        where userName=#{name}
+        ]]>
+</select>
+    <!-- count -->
+    <select id="count" resultType="java.lang.Long">
+<![CDATA[
+        select count(1) from Member
+        ]]>
+</select>
+    <!-- countByName -->
+    <select id="countByName" parameterType="java.lang.String"
+            resultType="java.lang.Long">
+<![CDATA[
+        select count(1)
+        from Member
+        where userName like CONCAT(CONCAT('%', #{name}), '%')
+        ]]>
+</select>
+
+    <!-- pager -->
+        <select id="pager" resultType="edu.uc.bean.Member">
+<![CDATA[
+            select *
+            from Member
+            order by userId asc
+                limit #{pageNum}, #{pageSize}
+            ]]>
+</select>
+        <!-- pagerByName -->
+        <select id="pagerByName" resultType="edu.uc.bean.Member">
+
+<![CDATA[
+            select * from Member
+            where userName like CONCAT(CONCAT('%', #{name}), '%')
+            order by userId asc
+                limit #{pageNum}, #{pageSize}
+            ]]>
+        </select>
+
+</mapper>
