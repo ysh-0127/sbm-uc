@@ -21,8 +21,7 @@
                           ,status ,remark ,sortNum ,isDeleted
                           ,createBy ,updateBy ,createOn ,updateOn
         )values(
-                   #{userName} ,#{userPass} ,#{nickName} ,#{email} ,#{mobile} ,#{myId} ,#
-                {myIdKey}
+                   #{userName} ,#{userPass} ,#{nickName} ,#{email} ,#{mobile} ,#{myId} ,#{myIdKey}
                ,#{regIp} ,#{regDate} ,#{lastLoginIp} ,#{lastLoginTime} ,#{salt} ,#{secques}
                ,#{status} ,#{remark} ,#{sortNum} ,#{isDeleted}
                ,#{createBy} ,#{updateBy} ,#{createOn} ,#{updateOn}
